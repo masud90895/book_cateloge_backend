@@ -1,12 +1,12 @@
 import express from 'express';
+import { UserAuthRoutes } from '../modules/userAuth/userAuth.routes';
 
 const router = express.Router();
 
 const moduleRoutes = [
   {
     path: '/auth',
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    route: require('./auth').default,
+    route: UserAuthRoutes,
   },
 ];
 
