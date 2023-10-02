@@ -16,4 +16,11 @@ router.get('/', CategoryController.getAllCategories);
 // get single category
 router.get('/:id', CategoryController.getSingleCategory);
 
+// update category
+router.patch(
+  '/:id',
+  auth(ENUM_USER_ROLE.ADMIN),
+  CategoryController.updateCategory
+);
+
 export const CategoriesRoutes = router;
