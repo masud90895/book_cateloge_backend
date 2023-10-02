@@ -30,7 +30,22 @@ const getAllCategories = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+// get single category
+
+const getSingleCategory = catchAsync(async (req: Request, res: Response) => {
+  const id = req.params?.id;
+  const result = await CategoriesService.getSingleCategory(id);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Category fetched  successfully!',
+    data: result,
+  });
+});
+
 export const CategoryController = {
   createNewCategory,
   getAllCategories,
+  getSingleCategory,
 };

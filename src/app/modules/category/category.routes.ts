@@ -13,5 +13,7 @@ router.post(
 );
 // get all categories
 router.get('/', CategoryController.getAllCategories);
+// get single category
+router.get('/:id', CategoryController.getSingleCategory);
 
 export const CategoriesRoutes = router;
