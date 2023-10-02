@@ -11,5 +11,7 @@ router.post(
   auth(ENUM_USER_ROLE.ADMIN),
   CategoryController.createNewCategory
 );
+// get all categories
+router.get('/', CategoryController.getAllCategories);
 
 export const CategoriesRoutes = router;

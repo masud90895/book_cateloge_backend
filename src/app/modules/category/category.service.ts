@@ -10,6 +10,18 @@ const createNewCategory = async (data: Category) => {
   return result;
 };
 
+// get all categories
+const getAllCategories = async () => {
+  const result = await prisma.category.findMany({
+    include: {
+      books: true,
+    },
+  });
+
+  return result;
+};
+
 export const CategoriesService = {
   createNewCategory,
+  getAllCategories,
 };

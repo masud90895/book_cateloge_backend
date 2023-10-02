@@ -4,7 +4,6 @@ import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
 import { CategoriesService } from './category.service';
 
-
 // create new category
 
 const createNewCategory = catchAsync(async (req: Request, res: Response) => {
@@ -18,6 +17,20 @@ const createNewCategory = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+// get all categories
+
+const getAllCategories = catchAsync(async (req: Request, res: Response) => {
+  const result = await CategoriesService.getAllCategories();
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Categories fetched  successfully!',
+    data: result,
+  });
+});
+
 export const CategoryController = {
   createNewCategory,
+  getAllCategories,
 };
