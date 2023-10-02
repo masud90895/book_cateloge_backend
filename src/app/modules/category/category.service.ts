@@ -65,9 +65,44 @@ const updateCategory = async (id: string, data: string) => {
   return result;
 };
 
+// delete category
+
+const deleteCategory = async (id: string): Promise<Category | null> => {
+  const isCategoryExist = await prisma.category.findUnique({
+    where: {
+      id,
+    },
+  });
+
+  if (!isCategoryExist) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Category not found !!');
+  }
+
+  const responseData = await prisma.$transaction(async transactionClient => {
+    await transactionClient.book.deleteMany({
+      where: {
+        categoryId: id,
+      },
+    });
+
+    const result = await transactionClient.category.delete({
+      where: {
+        id,
+      },
+    });
+    if (!result) {
+      throw new ApiError(httpStatus.BAD_REQUEST, 'Unable to Update Course');
+    }
+
+    return result;
+  });
+  return responseData;
+};
+
 export const CategoriesService = {
   createNewCategory,
   getAllCategories,
   getSingleCategory,
   updateCategory,
+  deleteCategory,
 };
